@@ -7,16 +7,14 @@ import { GET_TRACKS } from "./queries/fetchTracks";
 const Tracks = () => {
   const { loading, error, data } = useQuery(GET_TRACKS);
 
-  if (loading) return <h3>Loading...</h3>;
-  if (error) return `${error.message}`;
-
-  console.log(data.tracksForHome);
+  // console.log(JSON.stringify(data));
 
   return (
     <Layout grid>
       <QueryResult error={error} loading={loading} data={data}>
-        {data.tracksForHome.map((track, index) => (
-          <TrackCard key={track.id} track={track} />
+        {/*  El encadenamiento opcional ?. detiene la evaluación y devuelve undefined si el valor antes del ?. es undefined o null*/}
+        {data?.tracksForHome?.map((track, index) => (
+          <TrackCard key={index} track={track} />
         ))}
       </QueryResult>
     </Layout>
