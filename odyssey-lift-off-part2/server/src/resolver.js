@@ -3,9 +3,15 @@
 
 const resolvers = {
   Query: {
-    tracksForHome: (parent, arg, context, info) => {},
+    //return ans array of tracks
+    tracksForHome: (_, __, { dataSources }) => {
+      return dataSources.trackAPI.getTracksForHome();
+    },
+  },
+  Track: {
+    author: ({ authorId }, _, { dataSources }, info) => {
+      return dataSources.trackAPI.getAuthor(authorId);
+    },
   },
 };
 module.exports = resolvers;
-
-// kmlksdmflksmdflksdmflk
