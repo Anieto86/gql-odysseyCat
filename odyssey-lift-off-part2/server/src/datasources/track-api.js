@@ -2,6 +2,8 @@ const { RESTDataSource } = require("apollo-datasource-rest");
 
 // revisar nuevamente esta section
 
+//Data sources are classes that Apollo Server can use to encapsulate fetching data from a particular source, such as a database or a REST API. These classes help handle caching, deduplication, and errors while resolving operations.
+
 class TrackAPI extends RESTDataSource {
   constructor() {
     super();
