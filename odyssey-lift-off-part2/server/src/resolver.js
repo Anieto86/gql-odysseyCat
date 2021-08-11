@@ -17,18 +17,17 @@ const resolvers = {
     incrementTrackViews: async (_, { id }, { dataSources }) => {
       try {
         const track = await dataSources.trackAPI.incrementTrackViews(id);
-
         return {
           code: 200,
           success: true,
-          message: `no Errors yupi, Successfully incremented the number of views ${id}`,
+          message: `Successfully incremented number of views for track ${id}`,
           track,
         };
-      } catch (error) {
+      } catch (err) {
         return {
-          code: error.extensions.response.status,
+          code: err.extensions.response.status,
           success: false,
-          message: error.extensions.response.body,
+          message: err.extensions.response.body,
           track: null,
         };
       }
