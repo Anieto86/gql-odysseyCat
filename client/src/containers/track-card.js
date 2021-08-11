@@ -3,6 +3,11 @@ import styled from "@emotion/styled";
 import { colors, mq } from "../styles";
 import { humanReadableTimeFromSeconds } from "../utils/helpers";
 import { Link } from "@reach/router";
+import { useMutation } from "@apollo/client";
+import {
+  INCREMENT_TRACK_VIEWS,
+  GET_TRACKS,
+} from "../pages/queries/fetchTracks";
 
 /**
  * Track Card component renders basic info in a card format
@@ -11,8 +16,22 @@ import { Link } from "@reach/router";
 const TrackCard = ({ track }) => {
   const { title, thumbnail, author, length, modulesCount, id } = track;
 
+  const [incrementTrackViews, { loading, error }] = useMutation(
+    INCREMENT_TRACK_VIEWS
+  );
+
+  if (loading) return "Submitting...";
+  if (error) return `Submission error! ${error.message}`;
+
+  const handleIncrementTrackViews = () => {
+    incrementTrackViews({
+      variables: { incrementTrackViewsId: id },
+      refetchQueries: [{ query: GET_TRACKS }],
+    });
+  };
+
   return (
-    <CardContainer to={`/track/${id}`}>
+    <CardContainer to={`/track/${id}`} onClick={handleIncrementTrackViews}>
       <CardContent>
         <CardImageContainer>
           <CardImage src={thumbnail} alt={title} />

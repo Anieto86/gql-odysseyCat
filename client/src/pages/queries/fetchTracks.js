@@ -40,3 +40,17 @@ export const GET_TRACK = gql`
     }
   }
 `;
+
+export const INCREMENT_TRACK_VIEWS = gql`
+  mutation incrementTrackViewsMutation($incrementTrackViewsId: ID!) {
+    incrementTrackViews(id: $incrementTrackViewsId) {
+      code
+      success
+      message
+      track {
+        id
+        numberOfViews
+      }
+    }
+  }
+`;
