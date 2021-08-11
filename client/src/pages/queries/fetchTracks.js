@@ -54,3 +54,23 @@ export const INCREMENT_TRACK_VIEWS = gql`
     }
   }
 `;
+
+export const GET_MODULE_AND_PARENT_TRACK = gql`
+  query Query($moduleId: ID!, $trackId: ID!) {
+    module(id: $moduleId) {
+      id
+      title
+      content
+      videoUrl
+    }
+    track(id: $trackId) {
+      id
+      title
+      modules {
+        id
+        title
+        length
+      }
+    }
+  }
+`;
